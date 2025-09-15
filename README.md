@@ -12,6 +12,11 @@ Soil plays a central role in agriculture, water retention, and carbon storage. T
 Preliminary accuracy: 1.00
 
 Coded for confusion matrix and loss plots are included in the output.py file
+These are the the example:
+<img width="507" height="455" alt="image" src="https://github.com/user-attachments/assets/c39d75cb-110e-473a-9108-f723355d0d64" />
+<img width="562" height="455" alt="image" src="https://github.com/user-attachments/assets/1a2d2a10-8236-4640-a10d-fa3cc764b471" />
+
+
 
 🌍 Applications
 
