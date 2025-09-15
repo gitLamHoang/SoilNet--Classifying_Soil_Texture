@@ -1,41 +1,34 @@
 import torch.nn as nn
 import torch.nn.functional as F
 
-class CNN(nn.Module):
-  def __init__(self):
-    super(CNN, self).__init__()
-    self.layer1 = nn.Sequential(
-        nn.Conv2d(in_channels= 3, out_channels= 16, kernel_size= 5, stride = 1, padding = 1),
-        nn.BatchNorm2d(16),
-        nn.ReLU(),
-        nn.MaxPool2d((2,2), 1),
-    )
-    self.layer2 = nn.Sequential(
-        nn.Conv2d(in_channels= 16, out_channels= 32, kernel_size= 5, stride = 1, padding = 1),
-        nn.BatchNorm2d(32),
-        nn.ReLU(),
-        nn.MaxPool2d((2,2), 1),
-    )
-    self.layer3 = nn.Sequential(
-        nn.Conv2d(in_channels= 32, out_channels= 32, kernel_size= 5, stride = 1, padding = 1),
-        nn.BatchNorm2d(4),
-        nn.ReLU(),
-        nn.MaxPool2d((2,2), 1),
+class SoilNet(nn.Module):
+    def __init__(self, num_classes=3):
+        super(SoilNet, self).__init__()
+        self.features = nn.Sequential(
+            nn.Conv2d(3, 16, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(16),
+            nn.ReLU(),
+            nn.MaxPool2d(2,2),   # 256 -> 128
 
-    )
-    self.flatten = nn.Flatten() 
-    self.fc1 = nn.Linear(247 * 247 * 4, 64)
-    self.dropout = nn.Dropout(0.1)
-    self.fc2 = nn.Linear(64, 2)
+            nn.Conv2d(16, 32, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(32),
+            nn.ReLU(),
+            nn.MaxPool2d(2,2),   # 128 -> 64
 
-  def forward(self,x):
-    layer = [self.layer1,
-             self.layer2,
-             self.layer3,
-             self.fc1,
-             nn.ReLU(),
-             self.fc2,
-             nn.Softmax()
-             ]
-    network = nn.Sequential(*layer)
-    return network(x)
+            nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+            nn.MaxPool2d(2,2),   # 64 -> 32
+
+            nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(128),
+            nn.ReLU(),
+            nn.AdaptiveAvgPool2d((1,1))
+        )
+        self.classifier = nn.Linear(128, num_classes)
+
+    def forward(self, x):
+        x = self.features(x)
+        x = x.view(x.size(0), -1)
+        x = self.classifier(x)     # raw logits
+        return x
