@@ -11,7 +11,7 @@ Soil plays a central role in agriculture, water retention, and carbon storage. T
 
 Preliminary accuracy: 1.00
 
-Coded for onfusion matrix and loss plots are included in the output.py file
+Coded for confusion matrix and loss plots are included in the output.py file
 
 🌍 Applications
 
