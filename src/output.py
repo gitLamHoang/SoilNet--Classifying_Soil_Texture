@@ -1,4 +1,3 @@
-from 
 from model import *
 from train_model import *
 from data_preprocess import *
@@ -8,7 +7,7 @@ import matplotlib.pyplot as plt
 loaded_model = SoilNet().to(device)
 loaded_model.load_state_dict(torch.load("cnn_soil.pth"))
 loaded_model.eval()
-_, test_loader = train_and_test_loader(input_path = input, label_array = label_arr, train_ratio=0.8):
+_, test_loader = train_and_test_loader(input_path = input, label_array = label_arr, train_ratio=0.8)
 correct, total, test_loss = 0, 0, 0.0
 
 all_preds = []
