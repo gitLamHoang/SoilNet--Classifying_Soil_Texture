@@ -6,47 +6,12 @@ This repository contains the code and experiments for my Polygence research proj
 
 Soil plays a central role in agriculture, water retention, and carbon storage. Traditional soil texture classification methods are manual and time-intensive. In this project, we develop a neural network model that classifies soil texture automatically, reducing human error and improving scalability.
 
-⚙️ Features
-
-Data preprocessing: cleaning, normalization, and handling missing values.
-
-Neural network classifier implemented in TensorFlow/Keras.
-
-Training and evaluation with accuracy and confusion matrix.
-
-Colab-compatible notebook for easy reproduction.
-
-📂 Repository Structure
-.
-├── polygence_fixed.ipynb   # Main Colab notebook with code
-├── README.md               # Project documentation
-└── requirements.txt        # Python dependencies (optional)
-
-🚀 Getting Started
-1. Clone the repository
-git clone https://github.com/<your-username>/classifying_soil_texture.git
-cd classifying_soil_texture
-
-2. Install dependencies
-
-You can install the required packages in your environment:
-
-pip install -r requirements.txt
-
-
-Or, open the notebook directly in Google Colab.
-
-3. Run the notebook
-
-Upload the dataset and run all cells in:
-
-polygence_fixed.ipynb
 
 📊 Results
 
-Preliminary accuracy: to be filled in with your experiment results.
+Preliminary accuracy: 1.00
 
-Confusion matrix and training/validation plots are included in the notebook.
+Coded for onfusion matrix and loss plots are included in the output.py file
 
 🌍 Applications
 
