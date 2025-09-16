@@ -1,33 +1,71 @@
-🌱 Soil Texture Classification with Deep Learning
+# SoilNet – Soil Texture Classification using CNNs
 
-This repository contains the code and experiments for my Polygence research project, conducted under the mentorship of Leonard Gleyzer (PhD Candidate, Applied Mathematics, Brown University). The project explores how deep learning models can be applied to classify soil textures from experimental data, with potential applications in precision agriculture, soil monitoring, and sustainable land management.
+SoilNet is a deep learning project for classifying soil textures into three categories — **Coarse**, **Medium**, and **Fine** — using Convolutional Neural Networks (CNNs). The model achieves **99.46% accuracy** on the SOIL (v1) dataset, demonstrating CNNs' potential for fast, consistent, and automated soil texture classification.
 
-📌 Project Overview
+---
 
-Soil plays a central role in agriculture, water retention, and carbon storage. Traditional soil texture classification methods are manual and time-intensive. In this project, we develop a neural network model that classifies soil texture automatically, reducing human error and improving scalability.
+## 📌 Background & Motivation
+Soil texture significantly affects water retention, nutrient dynamics, and agricultural productivity. Traditional classification methods are time-consuming, require expert judgment, and can be subjective. This project leverages CNNs to automate the classification process, delivering rapid and highly accurate predictions.
+
+---
+
+## 📊 Dataset
+We used a combination of:
+- **SOIL (v1) Dataset** (Roboflow, 2025) – 3,573 soil images  
+- **Kaggle Soil Image Dataset** (Pondy, 2022) – additional samples to improve diversity  
+
+### Preprocessing Steps:
+- Removed irrelevant labels (e.g., `sandy soil`)
+- Relabeled images into **coarse**, **medium**, and **fine**
+- Resized all images to **256×256**
+- One-hot encoded class labels
+- Split data into **80% training** / **20% testing**
+
+---
+
+## 🏗️ Model Architecture
+The CNN consists of **four convolutional blocks** for hierarchical feature extraction, followed by a fully connected classification head.
+
+- **Conv Block 1:** 16 filters, 3×3 kernel, ReLU + BatchNorm + MaxPool  
+- **Conv Block 2:** 32 filters, 3×3 kernel, ReLU + BatchNorm + MaxPool  
+- **Conv Block 3:** 64 filters, 3×3 kernel, ReLU + BatchNorm + MaxPool  
+- **Conv Block 4:** 128 filters, 3×3 kernel, ReLU + BatchNorm + Adaptive Avg Pool  
+- **Fully Connected Layer:** 128 → 3 (Softmax)
+
+---
+
+## ⚙️ Hyperparameters
+| Parameter           | Values Tested        | Best Value |
+|--------------------|-------------------|-----------|
+| Epochs            | 30, 50, 70        | **50** |
+| Learning Rate     | 0.01, 0.001, 0.0001 | **0.001** |
+| Kernel Size       | 3×3, 5×5          | **5×5** |
+| Activation        | ReLU, LeakyReLU   | **LeakyReLU** |
+
+---
+
+## 📈 Results
+| Metric        | Score |
+|--------------|------|
+| Accuracy     | **99.46%** |
+| Precision    | **0.9946** |
+| Recall       | **0.9946** |
+| F1-Score     | **0.9946** |
+| Test Loss    | **0.0182** |
+<img width="576" height="455" alt="image" src="https://github.com/user-attachments/assets/27ef6182-f7c9-4af6-807b-f65f1aa489b8" />
 
 
-📊 Results
+### Confusion Matrix
+- **Coarse → Medium:** 1 misclassification  
+- **Medium → Coarse:** 3 misclassifications  
+- **Fine:** 100% correctly classified  
+<img width="553" height="455" alt="image" src="https://github.com/user-attachments/assets/753e069e-2cb7-4604-b33c-a7e75bbd88c3" />
 
-Preliminary accuracy: 1.00
+---
 
-Coded for confusion matrix and loss plots are included in the output.py file
-These are the the example:
-<img width="507" height="455" alt="image" src="https://github.com/user-attachments/assets/c39d75cb-110e-473a-9108-f723355d0d64" />
-<img width="562" height="455" alt="image" src="https://github.com/user-attachments/assets/1a2d2a10-8236-4640-a10d-fa3cc764b471" />
+## 🚀 Setup & Usage
 
-
-
-🌍 Applications
-
-Smart irrigation: better soil-water management.
-
-Crop planning: selecting crops suited to soil type.
-
-Sustainable agriculture: monitoring soil health at scale.
-
-👥 Authors
-
-Hoang Lam – Polygence Research Scholar
-
-Leonard Gleyzer – Mentor, PhD Candidate in Applied Mathematics, Brown University
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/yourusername/SoilNet.git
+cd SoilNet
